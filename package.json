@@ -1,0 +1,21 @@
+{
+  "name": "cara-cdn",
+  "version": "0.0.1",
+  "main": "js/index",
+  "plugins": [
+    "lotus-coffee"
+  ],
+  "devDependencies": {
+    "coffeescript": "^2.2.3"
+  },
+  "dependencies": {
+    "glob-regex": "^0.2.2",
+    "is-stream": "^1.1.0",
+    "mime-types": "^2.1.18",
+    "noop": "aleclarson/noop#0.0.1",
+    "slush": "^3.1.0",
+    "sort-obj": "aleclarson/sort-obj#1.0.0",
+    "steal": "aleclarson/steal#1.2.0",
+    "yiss": "^0.0.4"
+  }
+}
