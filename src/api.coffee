@@ -59,6 +59,7 @@ api.GET '/b/:file(.+)', (req, res) ->
     'Content-Type': mimeTypes.lookup(req.file) or 'application/octet-stream'
     'Content-Length': contentLength
     'Cache-Control': 'no-store'
+  res.flushHeaders()
 
   if typeof file is 'string'
   then res.send file
