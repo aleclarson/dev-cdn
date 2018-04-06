@@ -2,12 +2,6 @@
   "name": "cara-cdn",
   "version": "0.0.1",
   "main": "js/index",
-  "plugins": [
-    "lotus-coffee"
-  ],
-  "devDependencies": {
-    "coffeescript": "^2.2.3"
-  },
   "dependencies": {
     "glob-regex": "^0.2.2",
     "hasKeys": "aleclarson/hasKeys#1.0.0",
@@ -18,5 +12,13 @@
     "sort-obj": "aleclarson/sort-obj#1.0.0",
     "steal": "aleclarson/steal#1.2.0",
     "yiss": "^0.0.4"
+  },
+  "devDependencies": {
+    "coffeescript": "^2.2.3",
+    "wch-coffee": "^0.0.1"
+  },
+  "scripts": {
+    "build": "coffee-build src -o js -m",
+    "prepublishOnly": "prepv -i"
   }
 }
