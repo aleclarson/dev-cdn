@@ -22,9 +22,8 @@ class App
     @bundler.on 'warn', (msg) ->
       log.yellow 'warn:', msg
 
-    @bundler.on 'error', (err) ->
-      log.red err.name + ':', err.message
-
+    @bundler.on 'error', onError
+    @server.on 'error', onError
     return @server
 
   stop: ->
@@ -154,3 +153,8 @@ crawlProject = (project) ->
   name = huey.pale_green project.root.name
   log "✨ Crawled #{name} in #{elapsed}"
   return
+
+onError = (err) ->
+  if process.env.VERBOSE
+  then log err.stack
+  else log.red err.name + ':', err.message
