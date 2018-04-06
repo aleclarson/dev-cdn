@@ -40,9 +40,8 @@ class App
 
   read: (req, res) ->
     return project.read req, res if req.project
-    projects = req.bucket.projects.values()
-    until (next = projects.next()).done
-      val = next.value.read req, res
+    for root, project of req.bucket.projects
+      val = project.read req, res
       return val if val isnt false
 
   load: (root) ->
@@ -61,7 +60,7 @@ class App
     # Remember which buckets we are using.
     project.buckets = config.buckets
     config.buckets.forEach (bucket) ->
-      bucket.projects.add project
+      bucket.projects[root] = project
 
     # Populate the bundler with files.
     crawlProject project

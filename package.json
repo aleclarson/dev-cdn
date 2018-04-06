@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "glob-regex": "^0.2.2",
+    "hasKeys": "aleclarson/hasKeys#1.0.0",
     "is-stream": "^1.1.0",
     "mime-types": "^2.1.18",
     "noop": "aleclarson/noop#0.0.1",

@@ -1,4 +1,5 @@
 EventStream = require './EventStream'
+hasKeys = require 'hasKeys'
 crypto = require 'crypto'
 huey = require 'huey'
 noop = require 'noop'
@@ -22,7 +23,7 @@ class Bucket
     @ignore = opts.ignore or defaultIgnore
     @assets = @_loadAssets()
     @events = new EventStream
-    @projects = new Set
+    @projects = Object.create null
     @
 
   has: (name) ->
@@ -117,9 +118,9 @@ class Bucket
   drop: (root) ->
 
     if arguments.length
-      @projects.delete root
-      return false if @projects.size
-    else @projects.clear()
+      delete @projects[root]
+      return false if hasKeys @projects
+    else @projects = Object.create null
 
     @events.unpipe()
     @watcher.destroy()
