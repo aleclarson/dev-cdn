@@ -155,6 +155,7 @@ class Bucket
         since: fs.stat(jsonPath).mtime
     else
       assets = Object.create null
+      assets['assets.json'] = true
       query = @query()
 
     query.then (files) =>
