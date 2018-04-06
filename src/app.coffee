@@ -28,7 +28,7 @@ class App
 
   stop: ->
     if log.verbose
-      log.red 'Closing asset server...'
+      log.pale_pink 'Closing asset server...'
     fs.removeFile SOCK_PATH, false
     @server.close()
     @server = null

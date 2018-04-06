@@ -122,6 +122,9 @@ class Bucket
       return false if hasKeys @projects
     else @projects = Object.create null
 
+    if log.verbose
+      log.pale_pink 'Dropping bucket:', @name
+
     @events.unpipe()
     @watcher.destroy()
 

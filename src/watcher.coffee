@@ -29,7 +29,7 @@ exports.unwatch = (pack) ->
 
 exports.stop = ->
   if log.verbose
-    log.red 'Closing watch streams...'
+    log.pale_pink 'Closing watch streams...'
   started = false
   streams.forEach (s) -> s.destroy()
   return
