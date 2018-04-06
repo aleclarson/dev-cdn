@@ -5,7 +5,7 @@ log = require './log'
 
 cdn = exports
 
-cdn.start = (opts) ->
+cdn.run = (opts) ->
   if app.server
     throw Error 'Already started'
 
@@ -14,13 +14,13 @@ cdn.start = (opts) ->
     log.pale_green 'Server ready!'
     watcher.start()
 
-cdn.stop = ->
+cdn.end = ->
   if app.server
     app.stop()
     watcher.stop()
 
-cdn.load = (root) ->
-  project = app.load root
+cdn.add = (root) ->
+  project = app.add root
   watcher.watch project.root
 
-cdn.unload = app.unload.bind app
+cdn.remove = app.remove.bind app

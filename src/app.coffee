@@ -43,7 +43,7 @@ class App
       val = project.read req, res
       return val if val isnt false
 
-  load: (root) ->
+  add: (root) ->
     if @projects.hasOwnProperty root
       throw Error 'Already loaded: ' + root
 
@@ -115,7 +115,7 @@ class App
     return project
 
   # TODO: Properly unload the compiler for each bundle.
-  unload: (root) ->
+  remove: (root) ->
     if @projects.hasOwnProperty root
       if log.verbose
         log.pale_pink 'Unloading project:', root
