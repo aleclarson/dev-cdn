@@ -19,6 +19,6 @@
   },
   "scripts": {
     "build": "coffee-build src -o js -m",
-    "prepublishOnly": "prepv -i"
+    "prepublishOnly": "prepv -i || true"
   }
 }
