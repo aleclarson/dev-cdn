@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "log.js",
+  "sourceRoot": "..",
+  "sources": [
+    "src/log.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA,IAAA,IAAA,EAAA,GAAA,EAAA;;AAAA,IAAA,GAAO,OAAA,CAAQ,MAAR;;AACP,IAAA,GAAO,OAAA,CAAQ,MAAR;;AAEP,GAAA,GAAM,QAAA,CAAA,GAAI,IAAJ,CAAA;SACJ,GAAG,CAAC,IAAJ,CAAS,IAAI,CAAC,IAAL,CAAU,GAAV,CAAT;AADI;;AAGN,GAAG,CAAC,GAAJ,GAAU,QAAA,CAAC,GAAD,CAAA;EACR,IAAC,CAAA,IAAD,GAAQ,GAAA,IAAO;EACf,IAAI,CAAC,GAAL,CAAS,IAAT,EAAe,CAAC,CAAC,GAAF,IAAU,CAAC,OAAO,CAAC,GAAG,CAAC,QAAtC;AAFQ;;AAKV,GAAG,CAAC,OAAJ,GAAc,CAAC,CAAC,OAAO,CAAC,GAAG,CAAC;;AAE5B,MAAM,CAAC,OAAP,GAAiB",
+  "sourcesContent": [
+    "huey = require 'huey'\nnoop = require 'noop'\n\nlog = (...args) ->\n  log._log args.join ' '\n\nlog.set = (log) ->\n  @_log = log or noop\n  huey.log this, !!log and !process.env.NO_COLOR\n  return\n\nlog.verbose = !!process.env.VERBOSE\n\nmodule.exports = log\n"
+  ]
+}
