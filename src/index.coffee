@@ -14,7 +14,7 @@ cdn.run = (opts) ->
     log.pale_green 'Server ready!'
     watcher.start()
 
-cdn.end = ->
+cdn.stop = ->
   if app.server
     app.stop()
     watcher.stop()
