@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "index.js",
+  "sourceRoot": "..",
+  "sources": [
+    "src/index.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA,IAAA,GAAA,EAAA,GAAA,EAAA,GAAA,EAAA,GAAA,EAAA;;AAAA,OAAA,GAAU,OAAA,CAAQ,WAAR;;AACV,GAAA,GAAM,OAAA,CAAQ,OAAR;;AACN,GAAA,GAAM,OAAA,CAAQ,OAAR;;AACN,GAAA,GAAM,OAAA,CAAQ,OAAR;;AAEN,GAAA,GAAM;;AAEN,GAAG,CAAC,GAAJ,GAAU,QAAA,CAAC,IAAD,CAAA;EACR,IAAG,GAAG,CAAC,MAAP;IACE,MAAM,KAAA,CAAM,iBAAN,EADR;;EAGA,IAAoB,gBAApB;IAAA,GAAG,CAAC,GAAJ,CAAQ,IAAI,CAAC,GAAb,EAAA;;SACA,GAAG,CAAC,KAAJ,CAAA,CAAW,CAAC,IAAZ,CAAiB,GAAjB,CAAqB,CAAC,KAAtB,CAA4B,QAAA,CAAA,CAAA;IAC1B,GAAG,CAAC,UAAJ,CAAe,eAAf;WACA,OAAO,CAAC,KAAR,CAAA;EAF0B,CAA5B;AALQ;;AASV,GAAG,CAAC,IAAJ,GAAW,QAAA,CAAA,CAAA;EACT,IAAG,GAAG,CAAC,MAAP;IACE,GAAG,CAAC,IAAJ,CAAA;WACA,OAAO,CAAC,IAAR,CAAA,EAFF;;AADS;;AAKX,GAAG,CAAC,GAAJ,GAAU,QAAA,CAAC,IAAD,CAAA;AACR,MAAA;EAAA,OAAA,GAAU,GAAG,CAAC,GAAJ,CAAQ,IAAR;SACV,OAAO,CAAC,KAAR,CAAc,OAAO,CAAC,IAAtB;AAFQ;;AAIV,GAAG,CAAC,MAAJ,GAAa,QAAA,CAAC,IAAD,CAAA;AACX,MAAA;EAAA,OAAA,GAAU,GAAG,CAAC,QAAS,CAAA,IAAA;EACvB,OAAO,CAAC,OAAR,CAAgB,OAAO,CAAC,IAAxB;SACA,GAAG,CAAC,MAAJ,CAAW,IAAX;AAHW",
+  "sourcesContent": [
+    "watcher = require './watcher'\napp = require './app'\napi = require './api'\nlog = require './log'\n\ncdn = exports\n\ncdn.run = (opts) ->\n  if app.server\n    throw Error 'Already started'\n\n  log.set opts.log if opts.log?\n  app.start().pipe(api).ready ->\n    log.pale_green 'Server ready!'\n    watcher.start()\n\ncdn.stop = ->\n  if app.server\n    app.stop()\n    watcher.stop()\n\ncdn.add = (root) ->\n  project = app.add root\n  watcher.watch project.root\n\ncdn.remove = (root) ->\n  project = app.projects[root]\n  watcher.unwatch project.root\n  app.remove root\n"
+  ]
+}

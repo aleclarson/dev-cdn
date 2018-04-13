@@ -1,4 +1,4 @@
-# cara-cdn v0.0.1 
+# cara-cdn v0.0.2 
 
 A development server for bundles and static assets.
 

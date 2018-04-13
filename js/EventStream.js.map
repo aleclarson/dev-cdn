@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "EventStream.js",
+  "sourceRoot": "..",
+  "sources": [
+    "src/EventStream.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA,IAAA,WAAA,EAAA;;AAAA,UAAA,GAAa,OAAA,CAAQ,WAAR,CAAoB,CAAC;;AAE5B,cAAN,MAAA,YAAA;EACE,WAAa,CAAA,CAAA;IACX,IAAC,CAAA,OAAD,GAAW,IAAI;IACf;EAFW;;EAIb,IAAM,CAAC,KAAD,EAAQ,KAAR,CAAA;IACJ,KAAA,GAAQ,CAAA,OAAA,CAAA,CAAU,KAAV,CAAgB,QAAhB,CAAA,CAA0B,IAAI,CAAC,SAAL,CAAe,KAAf,CAA1B,CAA+C,IAA/C;WACR,IAAC,CAAA,OAAO,CAAC,OAAT,CAAiB,QAAA,CAAC,MAAD,CAAA;aAAY,MAAM,CAAC,KAAP,CAAa,KAAb;IAAZ,CAAjB;EAFI;;EAIN,IAAM,CAAC,MAAD,CAAA;AAEJ,QAAA;IAAA,IAAG,CAAC,UAAA,CAAW,MAAX,CAAJ;MACE,MAAM,KAAA,CAAM,gCAAN,EADR;KAAA;;IAIA,IAAG,MAAM,CAAC,MAAV;;MAGE,MAAM,CAAC,GAAP,CACE;QAAA,YAAA,EAAc,YAAd;QACA,cAAA,EAAgB,kCADhB;QAEA,mBAAA,EAAqB;MAFrB,CADF,EAAA;;MAMA,MAAM,CAAC,YAAP,CAAA,EATF;;IAWA,IAAC,CAAA,OAAO,CAAC,GAAT,CAAa,MAAb;IACA,MAAA,GAAS,CAAA,CAAA,GAAA;aAAG,IAAC,CAAA,MAAD,CAAQ,MAAR;IAAH;IACT,MAAM,CAAC,EAAP,CAAU,OAAV,EAAmB,MAAnB;IACA,MAAM,CAAC,EAAP,CAAU,QAAV,EAAoB,MAApB;AACA,WAAO;EArBH;;EAuBN,MAAQ,CAAC,MAAD,CAAA;IACN,IAAG,SAAS,CAAC,MAAb;MACE,IAAC,CAAA,OAAO,CAAC,MAAT,CAAgB,MAAhB,EADF;KAAA,MAAA;MAGE,IAAC,CAAA,OAAO,CAAC,OAAT,CAAiB,QAAA,CAAC,MAAD,CAAA;eAAY,MAAM,CAAC,GAAP,CAAA;MAAZ,CAAjB;MACA,IAAC,CAAA,OAAO,CAAC,KAAT,CAAA,EAJF;;AAKA,WAAO;EAND;;AAhCV;;AAwCA,MAAM,CAAC,OAAP,GAAiB",
+  "sourcesContent": [
+    "isWritable = require('is-stream').writable\n\nclass EventStream\n  constructor: ->\n    @streams = new Set\n    @\n\n  emit: (event, props) ->\n    event = \"event: #{event}\\ndata: #{JSON.stringify props}\\n\\n\"\n    @streams.forEach (stream) -> stream.write event\n\n  pipe: (stream) ->\n\n    if !isWritable stream\n      throw Error 'Cannot add non-writable stream'\n\n    # This stream is a ServerResponse.\n    if stream.socket\n\n      # Prepare the headers.\n      stream.set\n        'Connection': 'keep-alive'\n        'Content-Type': 'text/event-stream; charset=utf-8'\n        'Transfer-Encoding': 'chunked'\n\n      # Send the headers.\n      stream.flushHeaders()\n\n    @streams.add stream\n    unpipe = => @unpipe stream\n    stream.on 'close', unpipe\n    stream.on 'finish', unpipe\n    return stream\n\n  unpipe: (stream) ->\n    if arguments.length\n      @streams.delete stream\n    else\n      @streams.forEach (stream) -> stream.end()\n      @streams.clear()\n    return this\n\nmodule.exports = EventStream\n"
+  ]
+}

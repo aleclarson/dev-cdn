@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "fs.js",
+  "sourceRoot": "..",
+  "sources": [
+    "src/fs.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA,IAAA,EAAA,EAAA,EAAA,EAAA;;AAAA,UAAA,GAAa,OAAA,CAAQ,UAAR;;AACb,EAAA,GAAK,OAAA,CAAQ,KAAR;;AACL,EAAA,GAAK,OAAA,CAAQ,IAAR;;AAEL,EAAA,GAAK,MAAM,CAAC,MAAP,CAAc,EAAd,EAJL;;;AAOA,EAAE,CAAC,OAAH,GAAa,EAAE,CAAC,OAAH,CAAA,CAAA,GAAe;;AAC5B,EAAE,CAAC,QAAH,CAAY,EAAE,CAAC,OAAf,EARA;;;AAWA,EAAE,CAAC,SAAH,GAAe,EAAE,CAAC,OAAH,GAAa;;AAC5B,EAAE,CAAC,QAAH,CAAY,EAAE,CAAC,SAAf;;AAEA,EAAE,CAAC,QAAH,GAAc,QAAA,CAAC,IAAD,CAAA;SACZ,IAAI,CAAC,KAAL,CAAW,EAAE,CAAC,QAAH,CAAY,IAAZ,CAAX;AADY;;AAGd,EAAE,CAAC,SAAH,GAAe,QAAA,CAAC,IAAD,EAAO,IAAP,CAAA;SACb,EAAE,CAAC,SAAH,CAAa,IAAb,EAAmB,IAAI,CAAC,SAAL,CAAe,UAAA,CAAW,IAAX,CAAf,EAAiC,IAAjC,EAAuC,CAAvC,CAAnB;AADa;;AAGf,MAAM,CAAC,OAAP,GAAiB",
+  "sourcesContent": [
+    "sortObject = require 'sort-obj'\nfs = require 'fsx'\nos = require 'os'\n\nfs = Object.create fs\n\n# Use ~/.cara/ as the working directory\nfs.rootDir = os.homedir() + '/.cara'\nfs.writeDir fs.rootDir\n\n# Cache assets in ~/.cara/buckets/\nfs.bucketDir = fs.rootDir + '/buckets'\nfs.writeDir fs.bucketDir\n\nfs.readJson = (file) ->\n  JSON.parse fs.readFile file\n\nfs.writeJson = (file, json) ->\n  fs.writeFile file, JSON.stringify sortObject(json), null, 2\n\nmodule.exports = fs\n"
+  ]
+}
