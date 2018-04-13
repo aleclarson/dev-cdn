@@ -56,9 +56,6 @@ watchPackage = (pack) ->
     if file.name is 'package.json'
       return pack._readMeta()
 
-    if file.type is 'd'
-      return
-
     {bundler} = pack
     if file.new
       ext = path.extname file.name
