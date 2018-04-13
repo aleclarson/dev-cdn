@@ -23,4 +23,7 @@ cdn.add = (root) ->
   project = app.add root
   watcher.watch project.root
 
-cdn.remove = app.remove.bind app
+cdn.remove = (root) ->
+  project = app.projects[root]
+  watcher.unwatch project.root
+  app.remove root
